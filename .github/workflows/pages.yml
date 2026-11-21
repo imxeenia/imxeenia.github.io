@@ -39,17 +39,20 @@ jobs:
       - name: Include current approved legal documents
         run: |
           cp -R legal-pages/. _site/
-          # Update the legal-document link label in older published builds.
+          # Keep the same three navigation links in every published footer.
           python3 - <<'PY'
           from pathlib import Path
+          import re
+          links = '<a href="/care/">Уход</a><a href="/contacts/">Контакты</a><a href="/information/">Правовые документы</a>'
+          def normalize_footer(match):
+              footer = match.group(0)
+              nav_pattern = r'<nav\\b[^>]*aria-label="Дополнительная навигация"[^>]*>[\\s\\S]*?</nav>'
+              nav = '<nav aria-label="Дополнительная навигация">' + links + '</nav>'
+              return re.sub(nav_pattern, lambda _: nav, footer, count=1)
           for p in Path("_site").rglob("*.html"):
-              if "legal-pages" in p.parts:
-                  continue
-              content=p.read_text(encoding="utf-8")
-              content=content.replace('>Правовая информация</a>','>Правовые документы</a>')
-              # The offer is accessible from the Legal Documents landing page.
-              content=content.replace('<a href="/offer/">Публичная оферта</a>', '')
-              p.write_text(content,encoding="utf-8")
+              content = p.read_text(encoding="utf-8")
+              content = re.sub(r'<footer\\b[^>]*>[\\s\\S]*?</footer>', normalize_footer, content)
+              p.write_text(content, encoding="utf-8")
           PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
