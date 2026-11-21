@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - site.zip
+      - legal-pages/**
+      - .github/workflows/pages.yml
   workflow_dispatch:
 
 permissions:
@@ -34,6 +36,22 @@ jobs:
           rm -rf _site/api _site/.netlify _site/netlify
           find _site -type f \( -name '*.php' -o -name '.env*' -o -name '.htaccess' -o -name 'booking-secrets*' \) -delete
           touch _site/.nojekyll
+      - name: Include current approved legal documents
+        run: |
+          cp -R legal-pages/. _site/
+          # Update the legal-document link label in older published builds.
+          python3 - <<'PY'
+          from pathlib import Path
+          for p in Path("_site").rglob("*.html"):
+              if "legal-pages" in p.parts:
+                  continue
+              content=p.read_text(encoding="utf-8")
+              content=content.replace('>Правовая информация</a>','>Правовые документы</a>')
+              # Keep the existing navigation while exposing the approved offer.
+              if '/offer/' not in content and 'href="/information/"' in content:
+                  content=content.replace('href="/information/">Правовые документы</a>', 'href="/information/">Правовые документы</a><a href="/offer/">Публичная оферта</a>')
+              p.write_text(content,encoding="utf-8")
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
