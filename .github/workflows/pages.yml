@@ -47,9 +47,8 @@ jobs:
                   continue
               content=p.read_text(encoding="utf-8")
               content=content.replace('>Правовая информация</a>','>Правовые документы</a>')
-              # Keep the existing navigation while exposing the approved offer.
-              if '/offer/' not in content and 'href="/information/"' in content:
-                  content=content.replace('href="/information/">Правовые документы</a>', 'href="/information/">Правовые документы</a><a href="/offer/">Публичная оферта</a>')
+              # The offer is accessible from the Legal Documents landing page.
+              content=content.replace('<a href="/offer/">Публичная оферта</a>', '')
               p.write_text(content,encoding="utf-8")
           PY
       - name: Configure Pages
