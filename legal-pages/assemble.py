@@ -92,11 +92,14 @@ for route in ROUTES:
 
 (SITE / "legal-pages").mkdir(parents=True, exist_ok=True)
 (SITE / "legal-pages" / "legal.css").write_bytes((STAGED / "legal.css").read_bytes())
+(SITE / "legal-pages" / "mobile-nav.css").write_bytes((STAGED / "mobile-nav.css").read_bytes())
 
 # Normalize only the footer navigation on all pages in the ZIP, preserving
 # existing headers, original functionality, document bodies and layouts.
 for path in SITE.rglob("*.html"):
     html = path.read_text(encoding="utf-8")
+    if '</head>' in html and '/legal-pages/mobile-nav.css' not in html:
+        html = html.replace('</head>', '<link rel="stylesheet" href="/legal-pages/mobile-nav.css?v=1"></head>', 1)
     if FOOTER_RE.search(html):
         html = FOOTER_RE.sub(normalize_footer, html)
     path.write_text(html, encoding="utf-8")
