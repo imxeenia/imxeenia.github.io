@@ -1,10 +1,12 @@
-/* Shared mobile navigation treatment for Xeni_brows. */
+/* Match the approved Xeni_brows floating mobile navigation across all pages. */
 @media(max-width:900px){
   .header nav.is-open{
-    background:#eef1e8;
-    border:1px solid rgba(52,75,63,.22);
-    border-top:1px solid rgba(52,75,63,.12);
-    border-radius:0 0 28px 28px;
-    box-shadow:0 14px 24px rgba(35,52,43,.13),0 28px 54px rgba(35,52,43,.15);
+    top:calc(100% + 12px);
+    left:0;
+    right:0;
+    background:#f7f6f0;
+    border:1.5px solid #a6b49b;
+    border-radius:26px;
+    box-shadow:0 12px 22px rgba(35,52,43,.16),0 28px 48px rgba(35,52,43,.18);
   }
 }
