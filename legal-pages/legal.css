@@ -25,3 +25,6 @@
 @media(max-width:750px){.legal-documents .legal-document-entry{align-items:flex-start;flex-direction:column;gap:16px;border-radius:26px}.legal-documents .legal-document-entry>.button{white-space:normal}.legal-documents.legal{padding-top:36px;padding-bottom:56px}.legal-documents.legal>.legal-documents-lead,.legal-documents .legal-documents-list{margin-bottom:48px}.privacy-page,.offer-page{padding-top:34px;padding-bottom:70px}}
 @media(max-width:700px){.legal-documents.legal{width:calc(100% - 40px)}}
 @media(max-width:360px){.legal-documents .legal-document-entry{padding:22px}.legal-documents .legal-document-entry h2{font-size:30px}}
+
+/* Consistent return links: retain accessible focus styles but no underline. */
+a.legal-back,a.legal-back:hover,a.legal-back:focus-visible{text-decoration:none!important;border-bottom:0!important;background-image:none!important}
