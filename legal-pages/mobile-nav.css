@@ -1,0 +1,10 @@
+/* Shared mobile navigation treatment for Xeni_brows. */
+@media(max-width:900px){
+  .header nav.is-open{
+    background:#eef1e8;
+    border:1px solid rgba(52,75,63,.22);
+    border-top:1px solid rgba(52,75,63,.12);
+    border-radius:0 0 28px 28px;
+    box-shadow:0 14px 24px rgba(35,52,43,.13),0 28px 54px rgba(35,52,43,.15);
+  }
+}
