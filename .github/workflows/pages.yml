@@ -36,24 +36,8 @@ jobs:
           rm -rf _site/api _site/.netlify _site/netlify
           find _site -type f \( -name '*.php' -o -name '.env*' -o -name '.htaccess' -o -name 'booking-secrets*' \) -delete
           touch _site/.nojekyll
-      - name: Include current approved legal documents
-        run: |
-          cp -R legal-pages/. _site/
-          # Keep the same three navigation links in every published footer.
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          links = '<a href="/care/">Уход</a><a href="/contacts/">Контакты</a><a href="/information/">Правовые документы</a>'
-          def normalize_footer(match):
-              footer = match.group(0)
-              nav_pattern = r'<nav\b[^>]*aria-label="Дополнительная навигация"[^>]*>[\s\S]*?</nav>'
-              nav = '<nav aria-label="Дополнительная навигация">' + links + '</nav>'
-              return re.sub(nav_pattern, lambda _: nav, footer, count=1)
-          for p in Path("_site").rglob("*.html"):
-              content = p.read_text(encoding="utf-8")
-              content = re.sub(r'<footer\b[^>]*>[\s\S]*?</footer>', normalize_footer, content)
-              p.write_text(content, encoding="utf-8")
-          PY
+      - name: Assemble legal pages with authentic site navigation
+        run: python3 legal-pages/assemble.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
