@@ -10,9 +10,9 @@ import re
 SITE = Path("_site")
 STAGED = Path("legal-pages")
 ROUTES = ("information", "offer", "privacy")
-MAIN_RE = re.compile(r"<main\\b[^>]*>[\\s\\S]*?</main>")
-NAV_RE = re.compile(r'<nav\\b[^>]*aria-label="Дополнительная навигация"[^>]*>[\\s\\S]*?</nav>')
-FOOTER_RE = re.compile(r"<footer\\b[^>]*>[\\s\\S]*?</footer>")
+MAIN_RE = re.compile(r"<main\b[^>]*>[\s\S]*?</main>")
+NAV_RE = re.compile(r'<nav\b[^>]*aria-label="Дополнительная навигация"[^>]*>[\s\S]*?</nav>')
+FOOTER_RE = re.compile(r"<footer\b[^>]*>[\s\S]*?</footer>")
 FOOTER_LINKS = (
     '<a href="/care/">Уход</a>'
     '<a href="/contacts/">Контакты</a>'
@@ -40,12 +40,12 @@ template_path = SITE / "care" / "index.html"
 template = require(template_path.read_text(encoding="utf-8"), str(template_path))
 template_main = require(MAIN_RE.search(template), "Main missing from Astro care template")
 template_open = require(
-    re.match(r"<main\\b[^>]*>", template_main.group(0)),
+    re.match(r"<main\b[^>]*>", template_main.group(0)),
     "Main opening tag missing",
 ).group(0)
 require('class="menu-toggle"' in template, "Astro mobile menu missing")
 require('id="navigation"' in template, "Astro navigation missing")
-require(re.search(r'<header\\b[^>]*class="[^"]*header', template),
+require(re.search(r'<header\b[^>]*class="[^"]*header', template),
         "Astro header missing")
 # The template's active 'Уход' selection must not appear on legal pages.
 template = template.replace('aria-current="page"', "")
@@ -56,7 +56,7 @@ for route in ROUTES:
     staged_html = (STAGED / route / "index.html").read_text(encoding="utf-8")
     staged_main = require(MAIN_RE.search(staged_html), f"Missing main: {route}")
     staged_open = require(
-        re.match(r"<main\\b[^>]*>", staged_main.group(0)),
+        re.match(r"<main\b[^>]*>", staged_main.group(0)),
         f"Missing main opening tag: {route}",
     )
     main_inner = staged_main.group(0)[staged_open.end():-len("</main>")]
@@ -65,10 +65,10 @@ for route in ROUTES:
 
     html = MAIN_RE.sub(lambda _: built_main, template, count=1)
     title = require(
-        re.search(r"<title>([\\s\\S]*?)</title>", staged_html),
+        re.search(r"<title>([\s\S]*?)</title>", staged_html),
         f"Missing title: {route}",
     ).group(1)
-    html, count = re.subn(r"<title>[\\s\\S]*?</title>",
+    html, count = re.subn(r"<title>[\s\S]*?</title>",
                           lambda _: "<title>" + title + "</title>", html, count=1)
     require(count == 1, f"Missing template title: {route}")
     require("</head>" in html, "Missing closing head")
@@ -81,7 +81,7 @@ for route in ROUTES:
         "privacy": "Политика обработки персональных данных Xeni_brows.",
     }[route]
     html = re.sub(
-        r'<meta\\s+name="description"\\s+content="[^"]*"\\s*/?>',
+        r'<meta\s+name="description"\s+content="[^"]*"\s*/?>',
         lambda _: f'<meta name="description" content="{description}">',
         html,
         count=1,
@@ -115,7 +115,7 @@ for route in routes_to_audit:
     require(len(FOOTER_RE.findall(html)) == 1, f"Unexpected footer count: {path}")
     footer = FOOTER_RE.search(html).group(0)
     require(FOOTER_NAV in footer, f"Footer mismatch: {path}")
-    require(len(re.findall(r'<header\\b', html)) == 1, f"Header mismatch: {path}")
+    require(len(re.findall(r'<header\b', html)) == 1, f"Header mismatch: {path}")
     print(f"OK: /{route}/ shared header, mobile menu and three-link footer")
 
 print("Approved legal pages use the original site's responsive shell.")
