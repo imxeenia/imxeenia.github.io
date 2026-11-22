@@ -99,7 +99,7 @@ for route in ROUTES:
 for path in SITE.rglob("*.html"):
     html = path.read_text(encoding="utf-8")
     if '</head>' in html and '/legal-pages/mobile-nav.css' not in html:
-        html = html.replace('</head>', '<link rel="stylesheet" href="/legal-pages/mobile-nav.css?v=1"></head>', 1)
+        html = html.replace('</head>', '<link rel="stylesheet" href="/legal-pages/mobile-nav.css?v=2"></head>', 1)
     if FOOTER_RE.search(html):
         html = FOOTER_RE.sub(normalize_footer, html)
     path.write_text(html, encoding="utf-8")
