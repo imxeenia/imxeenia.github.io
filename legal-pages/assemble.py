@@ -72,7 +72,7 @@ for route in ROUTES:
                           lambda _: "<title>" + title + "</title>", html, count=1)
     require(count == 1, f"Missing template title: {route}")
     require("</head>" in html, "Missing closing head")
-    html = html.replace("</head>", '<link rel="stylesheet" href="/legal-pages/legal.css"></head>', 1)
+    html = html.replace("</head>", '<link rel="stylesheet" href="/legal-pages/legal.css?v=3"></head>', 1)
 
     # Replace care page's meta description with a legal-document description.
     description = {
