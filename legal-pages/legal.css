@@ -1,0 +1,27 @@
+/* Legal content only. Header, navigation, footer and fonts come from the real Xeni_brows site layout. */
+.legal-documents.legal{width:min(1280px,calc(100% - 96px));max-width:1280px;padding-top:64px;padding-bottom:72px}
+.legal-documents.legal>.eyebrow{font:600 11px/1.8 var(--sans,Manrope,Arial,sans-serif);letter-spacing:1.6px;margin:0 0 24px}
+.legal-documents.legal>h1{font:400 clamp(48px,6vw,86px)/1.07 var(--serif,Georgia,serif);margin:0 0 28px;max-width:none}
+.legal-documents.legal>.legal-documents-lead{max-width:750px;font-size:16px;line-height:1.75;margin:0 0 72px}
+.legal-documents .legal-documents-list{display:grid;gap:22px;margin-bottom:72px}
+.legal-documents .legal-document-entry{background:#e8eddf;border-radius:36px;padding:clamp(28px,4vw,52px);display:flex;justify-content:space-between;align-items:end;gap:30px}
+.legal-documents .legal-document-entry:nth-child(2){background:#e8dfd0}
+.legal-documents .legal-document-entry>div{max-width:760px;min-width:0;flex:1 1 auto}
+.legal-documents .legal-document-number{font:600 11px/1.8 var(--sans,Manrope,Arial,sans-serif);letter-spacing:1.4px;text-transform:uppercase;color:#52695a;margin:0 0 18px}
+.legal-documents .legal-document-entry h2{font:400 clamp(30px,3.7vw,52px)/1.13 var(--serif,Georgia,serif);margin:0 0 20px}
+.legal-documents .legal-document-entry p{font-size:14px;line-height:1.8;margin:0 0 12px;max-width:100%}
+.legal-documents .legal-document-entry>.button{flex-shrink:0;white-space:nowrap}
+.privacy-page,.offer-page{padding-top:64px;padding-bottom:120px;max-width:1030px}
+.privacy-page>h1,.offer-page>h1{font:400 clamp(38px,5vw,76px)/1.09 var(--serif,Georgia,serif);margin:24px 0}
+.privacy-page .eyebrow{margin:0 0 24px}
+.privacy-page .privacy-intro,.offer-page>p{max-width:850px;line-height:1.7}
+.privacy-page section,.offer-page section{border-top:1px solid rgba(52,75,63,.18);margin-top:38px;padding-top:30px}
+.privacy-page section h2,.offer-page section h2{font:400 clamp(24px,3vw,38px)/1.2 var(--serif,Georgia,serif);margin:0 0 20px}
+.privacy-page section p,.offer-page section p{font-size:15px;line-height:1.85;margin:0 0 15px;overflow-wrap:anywhere}
+.privacy-page section a,.offer-page section a{text-decoration:underline;text-underline-offset:3px}
+.privacy-page .offer-meta,.offer-page .offer-meta{font-weight:650}
+.legal-documents .button:focus-visible,.privacy-page a:focus-visible,.offer-page a:focus-visible{outline:2px solid #344b3f;outline-offset:4px}
+@media(max-width:1100px){.legal-documents.legal{width:calc(100% - 64px)}}
+@media(max-width:750px){.legal-documents .legal-document-entry{align-items:flex-start;flex-direction:column;gap:16px;border-radius:26px}.legal-documents .legal-document-entry>.button{white-space:normal}.legal-documents.legal{padding-top:36px;padding-bottom:56px}.legal-documents.legal>.legal-documents-lead,.legal-documents .legal-documents-list{margin-bottom:48px}.privacy-page,.offer-page{padding-top:34px;padding-bottom:70px}}
+@media(max-width:700px){.legal-documents.legal{width:calc(100% - 40px)}}
+@media(max-width:360px){.legal-documents .legal-document-entry{padding:22px}.legal-documents .legal-document-entry h2{font-size:30px}}
