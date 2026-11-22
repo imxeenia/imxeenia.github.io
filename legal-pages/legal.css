@@ -28,3 +28,6 @@
 
 /* Consistent return links: retain accessible focus styles but no underline. */
 a.legal-back,a.legal-back:hover,a.legal-back:focus-visible{text-decoration:none!important;border-bottom:0!important;background-image:none!important}
+
+/* Force back links to render without underline in legal page shells. */
+.offer-page > a.legal-back, .privacy-page > a.legal-back {text-decoration-line:none!important;text-decoration:none!important;border:0!important;box-shadow:none!important;background-image:none!important}
